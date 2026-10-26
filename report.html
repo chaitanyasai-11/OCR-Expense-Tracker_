@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mini-Project 3: OCR Expense Tracker & Receipt Parser - Le Huu Thai</title>
+<style>
+  @page {
+    size: A4;
+    margin: 12mm 14mm 12mm 14mm;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.4;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    color: #312e81;
+    font-size: 16pt;
+    margin-top: 0;
+    margin-bottom: 2px;
+    border-bottom: 2px solid #4f46e5;
+    padding-bottom: 4px;
+  }
+  .header-meta {
+    font-size: 9pt;
+    color: #475569;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  h2 {
+    color: #3730a3;
+    font-size: 12pt;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    border-left: 4px solid #4f46e5;
+    padding-left: 8px;
+    page-break-after: avoid;
+  }
+  h3 {
+    color: #1e1b4b;
+    font-size: 10.5pt;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    page-break-after: avoid;
+  }
+  p, li {
+    font-size: 9.5pt;
+    color: #334155;
+    margin-top: 2px;
+    margin-bottom: 3px;
+  }
+  ul {
+    margin-top: 3px;
+    margin-bottom: 5px;
+    padding-left: 18px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background-color: #4f46e5;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 5px 7px;
+    border: 1px solid #4338ca;
+  }
+  td {
+    padding: 4px 7px;
+    border: 1px solid #cbd5e1;
+    vertical-align: top;
+  }
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+  .badge-complete {
+    background-color: #dcfce7;
+    color: #15803d;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    page-break-inside: avoid;
+  }
+  .screenshot-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+    text-align: center;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .screenshot-card img {
+    width: 100%;
+    max-height: 145px;
+    object-fit: contain;
+    background-color: #0f172a;
+    display: block;
+  }
+  .screenshot-caption {
+    font-size: 7.5pt;
+    color: #64748b;
+    padding: 2px 4px;
+    background-color: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+    font-weight: 500;
+  }
+  pre {
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 8pt;
+    font-family: Consolas, monospace;
+    overflow-x: auto;
+    page-break-inside: avoid;
+    margin: 3px 0;
+  }
+  code {
+    font-family: Consolas, monospace;
+    background-color: #f1f5f9;
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-size: 8pt;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+
+<h1>MINI-PROJECT SHORT TECHNICAL REPORT</h1>
+<div class="header-meta">
+  <strong>Course:</strong> Cross-Platform Mobile App Development (VKU)<br>
+  <strong>Mini-Project Title:</strong> Mini-Project 3: OCR Expense Tracker & Receipt Parser<br>
+  <strong>Team / Student Name:</strong> Le Huu Thai (Mobile Engineering Lab)<br>
+  <strong>Submission Date:</strong> 08/10/2026
+</div>
+
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin-bottom: 8px;">
+
+<h2>1. GENERAL INFORMATION & DELIVERABLE LINKS</h2>
+<ul>
+  <li><strong>Team Members:</strong>
+    <ul>
+      <li>Le Huu Thai — Student ID: 23IT.EB091 — Role: Lead Architecture & On-Device ML/OCR Engine / CustomPainter Visualization, UI & SQLite Storage — Contribution: 100%</li>
+    </ul>
+  </li>
+  <li><strong>📦 Release APK:</strong> <a href="https://github.com/HuuThai127/ocr-expense-tracker/releases/download/v1.0.0/app-release.apk">https://github.com/HuuThai127/ocr-expense-tracker/releases/download/v1.0.0/app-release.apk</a> <em>(88.2 MB direct download)</em></li>
+  <li><strong>🎥 Video Demo:</strong> <a href="https://drive.google.com/file/d/1kPP8WbzLUPV_41wJLC7jazh56tFQPFaX/view?usp=sharing">Google Drive Walkthrough Video</a></li>
+  <li><strong>💻 GitHub Repository:</strong> <a href="https://github.com/HuuThai127/ocr-expense-tracker">https://github.com/HuuThai127/ocr-expense-tracker</a></li>
+  <li><strong>🌐 Supplementary Web Demo:</strong> <a href="https://ocr-expense-tracker-phi.vercel.app">https://ocr-expense-tracker-phi.vercel.app</a></li>
+</ul>
+
+<h2>2. FEATURE IMPLEMENTATION CHECKLIST</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%; text-align: center;">#</th>
+      <th style="width: 25%;">Required Feature</th>
+      <th style="width: 15%; text-align: center;">Status</th>
+      <th style="width: 55%;">Implementation Details & Acceptance Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center;">1</td>
+      <td><strong>Camera Preview & Framing Overlay</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>Native Android/iOS uses the Flutter camera plugin using native camera APIs with hardware flash modes (torch/auto/off) and interactive tap-to-focus via <code>setFocusPoint()</code>. Web uses an inline browser camera preview with the same receipt framing overlay; tap-to-focus and hardware torch are gracefully disabled due to browser API limitations.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">2</td>
+      <td><strong>Receipt Capture & Crop</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>Photo capture via <code>takePicture()</code>. Interactive draggable crop box using <code>image: ^4.10.1</code> (<code>copyCrop</code>, <code>encodeJpg</code>) and skip crop option.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">3</td>
+      <td><strong>Google ML Kit On-Device OCR</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>100% on-device neural text recognition via <code>google_mlkit_text_recognition: ^0.16.0</code>. Zero cloud APIs. Stopwatch latency tracking measured at 1,241 ms for native camera frame and 2,194 ms for sample bitmap in test environment (exceeding sub-100ms ideal target).</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">4</td>
+      <td><strong>ReceiptParser Heuristics</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>Multi-pass regex extracting merchant name, Vietnamese currency with dot/comma thousand separators (<code>150.000 đ</code>, <code>150,000 VND</code>), and transaction dates.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">5</td>
+      <td><strong>Review & Edit Screen</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>Review screen allowing manual editing of merchant, amount, calendar date picker, category selector chips, and bottom sheet raw OCR text inspector with measured inference latency.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">6</td>
+      <td><strong>SQLite Dual Persistence</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>Native Android/iOS uses <code>sqflite: ^2.4.2+1</code>; Web uses <code>sqflite_common_ffi_web: ^1.1.1</code> (SQLite WASM + IndexedDB). Persistent schema with indexed transaction date surviving restarts and reloads.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">7</td>
+      <td><strong>CustomPainter Donut Chart</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>Pure canvas rendering (<code>CategoryDonutPainter</code>) with ease-out cubic animation and touch-activated segment pop-out and center hole details.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">8</td>
+      <td><strong>CustomPainter Bar Chart</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>Pure canvas rendering (<code>WeeklyBarPainter</code>) showing Monday–Sunday distribution with animated height and touch hit testing.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">9</td>
+      <td><strong>Web Compatibility & Demo</strong></td>
+      <td style="text-align: center;"><span class="badge-complete">✅ Complete</span></td>
+      <td>Production Flutter Web release deployed to Vercel with SPA routing rewrite (<code>vercel.json</code>), responsive layout, and built-in sample receipt demo flow.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h2>3. TECHNICAL ARCHITECTURE & PROJECT STRUCTURE</h2>
+<p style="margin-bottom: 4px;">The application uses an <strong>MVVM-style Layered Architecture</strong> separating presentation, domain services, and SQLite data persistence. State management is driven by Provider via <code>ExpenseController</code>:</p>
+<div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 8px; margin-top: 2px; margin-bottom: 4px;">
+  <div>
+    <h3 style="margin-top: 2px; margin-bottom: 2px;">3.1 Project Structure</h3>
+    <pre style="margin: 0; font-size: 7.2pt; line-height: 1.25;">
+lib/
+├── app/                  # Application root & routes
+├── core/                 # Formatters (VND, dates) & errors
+├── data/
+│   ├── database/         # AppDatabase & ExpenseDao
+│   └── models/           # ExpenseModel, ParsedReceipt
+├── features/
+│   ├── analytics/        # CustomPainter spend charts
+│   ├── camera/           # Camera, framing mask & crop
+│   ├── expenses/         # ExpenseController (Provider)
+│   ├── home/             # Main spending dashboard
+│   └── review/           # Manual review form & chips
+├── painters/             # Donut & WeeklyBar painters
+└── services/             # On-device ML Kit OCR & parser
+</pre>
+  </div>
+  <div>
+    <h3 style="margin-top: 2px; margin-bottom: 2px;">3.2 Dual SQLite Schema</h3>
+    <pre style="margin: 0; font-size: 7.2pt; line-height: 1.25;">
+CREATE TABLE expenses (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  merchant_name TEXT NOT NULL,
+  total_amount REAL NOT NULL,
+  currency TEXT NOT NULL DEFAULT 'VND',
+  transaction_date TEXT NOT NULL,
+  category TEXT NOT NULL,
+  receipt_image_path TEXT,
+  created_at TEXT NOT NULL,
+  raw_ocr_text TEXT
+);
+CREATE INDEX idx_expenses_date 
+  ON expenses (transaction_date DESC);
+</pre>
+  </div>
+</div>
+<p style="font-size: 8pt; color: #475569; margin: 2px 0 4px 0;"><strong>Dual SQLite Engine:</strong> Native platforms leverage <code>sqflite</code> via OS SQLite C-libraries in document storage; Web initializes <code>sqflite_common_ffi_web</code> with SQLite WebAssembly (<code>sqlite3.wasm</code>) backed by browser IndexedDB persistence.</p>
+
+<h2>4. EMPIRICAL EVIDENCE & SCREENSHOTS</h2>
+<div class="screenshot-grid">
+  <div class="screenshot-card">
+    <img src="screenshots/01_dashboard.png" alt="Dashboard">
+    <div class="screenshot-caption">Fig 4.1: Dashboard & Spending Overview</div>
+  </div>
+  <div class="screenshot-card">
+    <img src="screenshots/02_camera_overlay.png" alt="Camera Framing">
+    <div class="screenshot-caption">Fig 4.2: Camera Overlay & Focus Ring</div>
+  </div>
+  <div class="screenshot-card">
+    <img src="screenshots/04_review_screen.png" alt="Review Expense">
+    <div class="screenshot-caption">Fig 4.3: Review Form & 'Detected' Status</div>
+  </div>
+  <div class="screenshot-card">
+    <img src="screenshots/05_analytics_charts.png" alt="Analytics Charts">
+    <div class="screenshot-caption">Fig 4.4: CustomPainter Donut & Bar Charts</div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>5. TECHNICAL CHALLENGES & RESOLUTIONS</h2>
+
+<h3>Challenge 1: Unifying Vietnamese Currency Notations in OCR Text</h3>
+<ul>
+  <li><strong>The Problem:</strong> Vietnamese paper receipts utilize varied thousand and decimal formats (e.g. <code>150.000 đ</code>, <code>150,000 VND</code>, <code>1.250.000</code>). In addition, receipt headers contain tax codes (<code>MST: 0312345678</code>) and phone numbers (<code>0908123456</code>) that naive digit extraction incorrectly identifies as inflated spending amounts.</li>
+  <li><strong>The Solution:</strong> Implemented a 3-priority extraction algorithm in <code>ReceiptParser</code>: (1) Reverse scan for total keywords (<code>TONG CONG</code>, <code>THANH TIEN</code>, <code>TOTAL</code>) and parse trailing numbers; (2) Scan for lines ending in currency indicators (<code>VND</code>, <code>VNĐ</code>, <code>đ</code>); (3) Noise rejection regex (<code>\b0[35789]\d{8}\b</code>, <code>MST</code>, <code>TEL</code>) preventing tax and phone numbers from entering monetary candidate arrays.</li>
+</ul>
+
+<h3>Challenge 2: High-Performance Animated Charts Without Third-Party Libraries</h3>
+<ul>
+  <li><strong>The Problem:</strong> Prohibiting third-party libraries (such as <code>fl_chart</code>) required writing bespoke math for animated Donut and Bar charts, including slice hit-testing, dynamic normalization, and smooth segment animations.</li>
+  <li><strong>The Solution:</strong> 
+    <ul>
+      <li>Built <code>CategoryDonutPainter</code> with <code>drawArc()</code> driven by a 900ms <code>CurvedAnimation(curve: Curves.easeOutCubic)</code>.</li>
+      <li>Implemented angular bisector displacement ($d = 6\text{px}$) so selected slices pop outward dynamically while the center hole displays the active category icon, percentage, and exact amount.</li>
+      <li>Built <code>WeeklyBarPainter</code> normalizing daily expenditures against peak spending with 20% visual headroom.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Challenge 3: On-Device OCR Latency & Hardware Variance</h3>
+<ul>
+  <li><strong>The Problem:</strong> Running neural text recognition 100% on-device requires balancing inference accuracy against mobile CPU/NPU performance. In the verification environment, the measured latency was <strong>1,241 ms</strong> for native high-resolution camera frames and <strong>2,194 ms</strong> for dense sample receipt bitmaps, which is above the aggressive sub-100ms ideal target.</li>
+  <li><strong>The Solution:</strong>
+    <ul>
+      <li>The project implements true on-device OCR via <code>google_mlkit_text_recognition: ^0.16.0</code> without any cloud server offloading.</li>
+      <li>A dedicated <code>Stopwatch</code> profiles inference duration transparently, displaying the exact execution time in the review screen and bottom sheet.</li>
+      <li>To ensure platform-agnostic evaluation, the app provides both an inline browser camera flow and a built-in Sample Receipt Suite on the deployed Flutter Web release, allowing evaluators to verify the complete camera-to-dashboard workflow while ML Kit remains native Android/iOS only.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Verification Summary</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Verification Step</th>
+      <th>Command / Metric</th>
+      <th>Outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Automated Unit & Widget Tests</strong></td>
+      <td><code>flutter test</code></td>
+      <td><strong>30 / 30 Passed (100% Success)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Static Code Analysis</strong></td>
+      <td><code>dart analyze</code></td>
+      <td><strong>0 Errors, 0 Warnings (Clean)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Android Production Release Build</strong></td>
+      <td><code>flutter build apk --release</code></td>
+      <td><strong>Successfully built <code>app-release.apk</code> (88.2 MB)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Web Production Release</strong></td>
+      <td><code>flutter build web --release</code></td>
+      <td><strong>Deployed to Vercel (Production Live)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Web Data Persistence</strong></td>
+      <td>IndexedDB SQLite WASM</td>
+      <td><strong>Verified (Survives browser reloads)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>On-Device ML OCR Latency</strong></td>
+      <td>Stopwatch benchmark on Android</td>
+      <td><strong>1,241 ms (native frame) / 2,194 ms (bitmap)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Chart Engine Compliance</strong></td>
+      <td><code>CategoryDonutPainter</code> & <code>WeeklyBarPainter</code></td>
+      <td><strong>Zero Third-Party Charting Libraries</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin-top: 8px; font-weight: 500; color: #1e1b4b;">
+Mini-Project 3 has been completed in full compliance with the Definition of Done. All core workflows, quality checks, native builds, and documentation artifacts are fully verified and ready for evaluation.
+</p>
+
+</body>
+</html>
