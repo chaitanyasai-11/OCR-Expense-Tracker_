@@ -11,18 +11,6 @@ An offline-first, privacy-focused intelligent mobile expense tracker built with 
 
 Receipts are photographed or cropped, recognized 100% locally on-device without any cloud API dependency, reviewed with full manual override, and organized into animated interactive charts.
 
----
-
-## 🌐 Public Deliverables
-
-* **📦 Release APK:** [app-release.apk (v1.0.0)](https://github.com/HuuThai127/ocr-expense-tracker/releases/download/v1.0.0/app-release.apk) *(88.2 MB direct download)*
-* **🎥 Video Demo Walkthrough:** [Google Drive Walkthrough Video](https://drive.google.com/file/d/1kPP8WbzLUPV_41wJLC7jazh56tFQPFaX/view?usp=sharing)
-* **💻 GitHub Repository:** [https://github.com/HuuThai127/ocr-expense-tracker](https://github.com/HuuThai127/ocr-expense-tracker)
-* **🌐 Supplementary Web Demo:** [https://ocr-expense-tracker-phi.vercel.app](https://ocr-expense-tracker-phi.vercel.app)
-* **📄 Technical Report PDF:** [REPORT.pdf](REPORT.pdf) (3-page technical report)
-* **📄 Technical Report Markdown:** [REPORT.md](REPORT.md)
-
----
 
 ## 📱 Visual Showcase & Screenshots
 
@@ -218,11 +206,3 @@ flutter build web --release
 
 ---
 
-## 📄 Submission Deliverables & Status
-
-- **Release APK (v1.0.0)**: [https://github.com/HuuThai127/ocr-expense-tracker/releases/download/v1.0.0/app-release.apk](https://github.com/HuuThai127/ocr-expense-tracker/releases/download/v1.0.0/app-release.apk)
-- **Video Demo Walkthrough**: [Google Drive Walkthrough Video](https://drive.google.com/file/d/1kPP8WbzLUPV_41wJLC7jazh56tFQPFaX/view?usp=sharing)
-- **GitHub Repository**: [https://github.com/HuuThai127/ocr-expense-tracker](https://github.com/HuuThai127/ocr-expense-tracker)
-- **Supplementary Web Demo**: [https://ocr-expense-tracker-phi.vercel.app](https://ocr-expense-tracker-phi.vercel.app)
-- **Technical Report PDF (3 Pages)**: [REPORT.pdf](REPORT.pdf)
-- **Technical Report Markdown**: [REPORT.md](REPORT.md)
